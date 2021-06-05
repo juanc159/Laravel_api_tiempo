@@ -2,7 +2,7 @@
     <app-layout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Dashboard
+                Consulta el Tiempo
             </h2>
         </template>
 
@@ -82,7 +82,7 @@
                 })
             },
             paisId(id){
-                axios.get(route('ciudades.index',id)).then(res=>{
+                axios.get(route('ciudades.buscar',id)).then(res=>{
                     this.ciudades = res.data;
                 })
             },
