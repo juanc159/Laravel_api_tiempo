@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CitiesController;
+use App\Http\Controllers\CountriesController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -27,3 +29,11 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
+
+
+Route::get('/paises',[CountriesController::class,'index'])->name('paises.index');
+Route::get('/paises/{id}',[CountriesController::class,'buscar'])->name('paises.buscar');
+
+
+Route::get('/ciudades/{id}',[CitiesController::class,'index'])->name('ciudades.index');
+Route::get('/prueba/{c}/{p}',[CitiesController::class,'prueba'])->name('ciudades.prueba');

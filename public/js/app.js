@@ -17888,11 +17888,51 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      pais: '',
-      ciudad: ''
+      pais_seleccionado: '',
+      ciudad_seleccionada: '',
+      paises: [],
+      ciudades: [],
+      paisCod: '',
+      info: null
     };
   },
-  created: function created() {}
+  created: function created() {
+    this.listar_paises();
+    this.infoTiempo();
+  },
+  methods: {
+    listar_paises: function listar_paises() {
+      var _this = this;
+
+      axios.get(route('paises.index')).then(function (res) {
+        _this.paises = res.data;
+      });
+    },
+    paisId: function paisId(id) {
+      var _this2 = this;
+
+      axios.get(route('ciudades.index', id)).then(function (res) {
+        _this2.ciudades = res.data;
+      });
+    },
+    buscarPais: function buscarPais(id) {
+      var _this3 = this;
+
+      axios.get(route('paises.buscar', id)).then(function (res) {
+        _this3.paisCod = res.data;
+        console.log(_this3.paisCod.cod);
+      });
+    },
+    infoTiempo: function infoTiempo() {
+      var _this4 = this;
+
+      if (!this.ciudad_seleccionada == '') {
+        axios.get('prueba/' + this.ciudad_seleccionada + '/' + this.paisCod).then(function (res) {
+          _this4.info = res.data;
+        });
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -21486,31 +21526,9 @@ var _hoisted_3 = {
 var _hoisted_4 = {
   "class": "bg-white overflow-hidden shadow-xl sm:rounded-lg"
 };
-
-var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("option", {
-  value: "VE"
-}, "Venezuela", -1
-/* HOISTED */
-);
-
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("option", {
-  value: "CO"
-}, "Colombia", -1
-/* HOISTED */
-);
-
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("option", {
-  value: "Caracas"
-}, "Caracas", -1
-/* HOISTED */
-);
-
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("option", {
-  value: "Bogota"
-}, "Bogota", -1
-/* HOISTED */
-);
-
+var _hoisted_5 = {
+  key: 0
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_app_layout = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("app-layout");
 
@@ -21521,19 +21539,70 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("select", {
         "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
-          return $data.pais = $event;
+          return $data.pais_seleccionado = $event;
+        }),
+        onChange: _cache[2] || (_cache[2] = function ($event) {
+          $options.paisId($data.pais_seleccionado);
+          $options.buscarPais($data.pais_seleccionado);
         })
-      }, [_hoisted_5, _hoisted_6], 512
-      /* NEED_PATCH */
-      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.pais]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("select", {
-        "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
-          return $data.ciudad = $event;
+      }, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.paises, function (pais) {
+        return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("option", {
+          key: pais.id,
+          value: pais.id
+        }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(pais.name), 9
+        /* TEXT, PROPS */
+        , ["value"]);
+      }), 128
+      /* KEYED_FRAGMENT */
+      ))], 544
+      /* HYDRATE_EVENTS, NEED_PATCH */
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.pais_seleccionado]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("select", {
+        "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+          return $data.ciudad_seleccionada = $event;
+        }),
+        onChange: _cache[4] || (_cache[4] = function ($event) {
+          return $options.infoTiempo();
         })
-      }, [_hoisted_7, _hoisted_8], 512
-      /* NEED_PATCH */
-      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.ciudad]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.pais) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.ciudad), 1
+      }, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.ciudades, function (ciudad) {
+        return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("option", {
+          key: ciudad.id,
+          value: ciudad.name
+        }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(ciudad.name), 9
+        /* TEXT, PROPS */
+        , ["value"]);
+      }), 128
+      /* KEYED_FRAGMENT */
+      ))], 544
+      /* HYDRATE_EVENTS, NEED_PATCH */
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.ciudad_seleccionada]])]), $data.info ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("ul", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", null, "PAIS: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.info['sys']['country']), 1
       /* TEXT */
-      )])])])];
+      ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", null, "ESTADO: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.info['name']), 1
+      /* TEXT */
+      )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("ul", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", null, "longitud: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.info['coord']['lon']), 1
+      /* TEXT */
+      ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", null, "latitud: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.info['coord']['lat']), 1
+      /* TEXT */
+      )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("ul", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", null, "Condición Climatica: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.info['weather']['description']), 1
+      /* TEXT */
+      )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("ul", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", null, "Temperatura: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.info['main']['feels_like']) + " Kelvin", 1
+      /* TEXT */
+      ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", null, "Temperatura mínima en este momento: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.info['main']['temp_min']) + " Kelvin", 1
+      /* TEXT */
+      ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", null, "Temperatura máxima en este momento: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.info['main']['temp_max']) + " Kelvin", 1
+      /* TEXT */
+      ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", null, "Presión atmosférica: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.info['main']['pressure']) + " hPa", 1
+      /* TEXT */
+      ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", null, "Humedad: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.info['main']['humidity']) + " % ", 1
+      /* TEXT */
+      )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("ul", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", null, "Velocidad del viento: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.info['wind']['speed']) + " metro / seg", 1
+      /* TEXT */
+      ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", null, "Dirección del viento: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.info['wind']['deg']) + " grados (meteorológicos)", 1
+      /* TEXT */
+      ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", null, "Ráfaga de viento: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.info['wind']['gust']) + " metro / seg", 1
+      /* TEXT */
+      )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("ul", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", null, "Nubosidad: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.info['clouds']['all']) + " %", 1
+      /* TEXT */
+      )])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])];
     }),
     _: 1
     /* STABLE */
