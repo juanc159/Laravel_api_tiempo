@@ -1,4 +1,4 @@
-hola<template>
+<template>
     <app-layout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -124,11 +124,4 @@ hola<template>
             },
         }
     }
-</script>
-<style>
-.show{
-    display: list-item;
-    opacity:  1;
-    background: rgba(44,38,75,0.5);
-}
-</style>
+</script> 

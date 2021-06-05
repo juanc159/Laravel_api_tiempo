@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Commentary;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class UsersController extends Controller
+class ComentariosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,16 +15,18 @@ class UsersController extends Controller
      */
     public function index()
     {
-        //
-        return Inertia::render('Usuarios');
-        
+        return Inertia::render('Comentarios');
+    }
+    
+    public function usuario_comentario($id){
+        $comentario = Commentary::find($id);
+        $usuario = $comentario->user;
+        return $usuario;
     }
 
-    public function listUsuarios()
+    public function listComentarios()
     {
-        //
-        return User::all();
-        
+        return Commentary::all();
     }
 
     /**
@@ -45,9 +46,9 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($id)
     {
-        $user->find();
+        //
     }
 
     /**
@@ -57,9 +58,9 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
-        $user->update($request->all());
+        //
     }
 
     /**
@@ -68,11 +69,8 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        $user->delete();
+        //
     }
-
-    
-    
 }
