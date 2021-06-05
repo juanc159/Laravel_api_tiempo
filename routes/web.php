@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CitiesController;
 use App\Http\Controllers\CountriesController;
+use App\Http\Controllers\TiempoController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -36,4 +37,4 @@ Route::get('/paises/{id}',[CountriesController::class,'buscar'])->name('paises.b
 
 
 Route::get('/ciudades/{id}',[CitiesController::class,'index'])->name('ciudades.index');
-Route::get('/prueba/{c}/{p}',[CitiesController::class,'prueba'])->name('ciudades.prueba');
+Route::get('/tiempo/{c}/{p}',[TiempoController::class,'consulta'])->name('tiempo.consulta');

@@ -9,15 +9,15 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    
+                    <label for="pais">Seleccione el Pais: </label>
                     <select v-model="pais_seleccionado" @change="paisId(pais_seleccionado); buscarPais(pais_seleccionado)">
                         <option v-for="pais in paises" :key="pais.id" :value="pais.id">{{pais.name}}</option>
-                    </select>
+                    </select> <br>
+                    <label for="pais">Seleccione el Estado: </label>
                     <select v-model="ciudad_seleccionada" @change="infoTiempo()">
                         <option v-for="ciudad in ciudades" :key="ciudad.id" :value="ciudad.name">{{ciudad.name}}</option>
                     </select>
-                </div>
-            <div v-if="info">
+                    <div v-if="info">
                 <ul>
                     <li>PAIS: {{info['sys']['country']}}</li>
                     <li>ESTADO: {{info['name']}}</li>
@@ -47,6 +47,8 @@
                     <li>Nubosidad: {{info['clouds']['all']}} %</li>
                 </ul>
                 </div>
+                </div>
+            
             </div>
         </div>
     </app-layout>
@@ -91,7 +93,7 @@
             },
             infoTiempo(){
                 if(!this.ciudad_seleccionada==''){
-                    axios.get('prueba/'+this.ciudad_seleccionada+'/'+this.paisCod).then(res=>{
+                    axios.get('tiempo/'+this.ciudad_seleccionada+'/'+this.paisCod).then(res=>{
                     this.info = res.data;
                     })
                 }
